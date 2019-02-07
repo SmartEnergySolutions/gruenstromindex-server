@@ -1,0 +1,96 @@
+---
+swagger: "2.0"
+info:
+  description: "[EN] Forecast for the amount of renewable energy in german grid.\n\
+    \n[DE] Prognose des Anteils an Grünstrom an einem Ort in Deutschland. Der Grü\
+    nstromindex kann bundesweit zur Optimierung von Ladezeiten von E-Autos dienen\
+    \ sowie zum Anbieten von zeitvariablen Stromprodukten. Weitere Informationen zum\
+    \ Grünstromindex und dessen Verwendung in der Energiewirtschaft https://www.corrently.de/hintergrund/gruenstromindex/index.html\n\
+    \   \n"
+  version: "4.1.3"
+  title: "Grünstromindex - Green Power Index"
+host: "api.corrently.io"
+schemes:
+- "https"
+paths:
+  /core/gsi:
+    get:
+      description: "*EN* Retrieve `GreenPowerIndex` for a location or an account\n\
+        \n*DE* Abfrage des `Grünstromindex` für einen Standort oder einen Kunden in\
+        \ Deutschland\n"
+      operationId: "coreGsiGET"
+      parameters:
+      - name: "plz"
+        in: "query"
+        description: "Valid zipcode in Germany"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Set of predictions for given location"
+          schema:
+            type: "object"
+            properties:
+              forecast:
+                type: "array"
+                items:
+                  $ref: "#/definitions/period"
+              location:
+                $ref: "#/definitions/inline_response_200_location"
+      x-swagger-router-controller: "Default"
+definitions:
+  period:
+    properties:
+      epochtime:
+        type: "number"
+        example: 1549490400
+        description: "Seconds since 1/1/1970 of period start"
+      eevalue:
+        type: "number"
+        example: 57
+        description: "Actual Green Power index values (min=0 max=100)"
+      timeStamp:
+        type: "number"
+        example: 1549490400000
+        description: "Milliseconds since 1/1/1970of period start"
+      energyprice:
+        type: "number"
+        example: -0.0194999999999999999722444243843710864894092082977294921875
+        description: "saved money per kWh"
+    example:
+      epochtime: 1549490400
+      timeStamp: 1549490400000
+      eevalue: 57
+      energyprice: -0.0194999999999999999722444243843710864894092082977294921875
+  inline_response_200_location:
+    properties:
+      zip:
+        type: "string"
+        example: "69256"
+      city:
+        type: "string"
+        example: "Mauer (Baden)"
+    example:
+      zip: "69256"
+      city: "Mauer (Baden)"
+  inline_response_200:
+    properties:
+      forecast:
+        type: "array"
+        items:
+          $ref: "#/definitions/period"
+      location:
+        $ref: "#/definitions/inline_response_200_location"
+    example:
+      forecast:
+      - epochtime: 1549490400
+        timeStamp: 1549490400000
+        eevalue: 57
+        energyprice: -0.0194999999999999999722444243843710864894092082977294921875
+      - epochtime: 1549490400
+        timeStamp: 1549490400000
+        eevalue: 57
+        energyprice: -0.0194999999999999999722444243843710864894092082977294921875
+      location:
+        zip: "69256"
+        city: "Mauer (Baden)"

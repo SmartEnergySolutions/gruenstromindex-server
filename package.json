@@ -1,0 +1,29 @@
+{
+	"name": "gruenstromindex-server",
+	"version": "4.1.4",
+	"description": "[EN] Forecast for the amount of renewable energy in german grid.  [DE] Prognose des Anteils an Grünstrom an einem Ort in Deutschland. Der Grünstromindex kann bundesweit zur Optimierung von Ladezeiten von E-Autos dienen sowie zum Anbieten von zeitvariablen Stromprodukten. Weitere Informationen zum Grünstromindex und dessen Verwendung in der Energiewirtschaft https://www.corrently.de/hintergrund/gruenstromindex/index.html     ",
+	"keywords": [
+		"swagger",
+		"corrently",
+		"energy",
+		"greenpowerindex",
+		"gruenstromindex"
+	],
+	"homepage": "https://www.corrently.de/hintergrund/gruenstromindex/index.html",
+	"license": "Apache-2.0",
+	"author": "Corrently Corp <support@corrently.com>",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/SmartEnergySolutions/gruenstromindex-server.git"
+	},
+	"scripts": {
+		"prestart": "npm install",
+		"start": "node index.js"
+	},
+	"dependencies": {
+		"connect": "^3.2.0",
+		"js-yaml": "^3.3.0",
+		"swagger-tools": "^0.10.4"
+	}
+}
